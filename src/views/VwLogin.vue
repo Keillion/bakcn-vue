@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { defineComponent, reactive } from 'vue';
-import { Form, Input, Button, Divider, message } from 'ant-design-vue';
+import { Form, Input, Button, Divider } from 'ant-design-vue';
 import { fetchLogin } from '@/util';
 import { ArrowLeftOutlined, UserOutlined, LockOutlined, WechatOutlined, AlipayCircleOutlined, WhatsAppOutlined } from '@ant-design/icons-vue';
 

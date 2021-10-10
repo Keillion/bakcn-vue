@@ -1,14 +1,19 @@
 <script lang="tsx">
-import { defineComponent, inject, Ref } from 'vue';
+import { defineComponent, inject, Ref, watchEffect } from 'vue';
+import { useRouter } from 'vue-router'
 import CpQR from '@/components/CpQR.vue'
 
 export default defineComponent({
   setup(props, context){
-    //const user = inject("user") as Ref<string>;
-    const usrInfo = inject("usrInfo", {
-      connectExpireTime: "yyyy-MM-dd",
-      connectMaxDeviceCount: 0,
-    });
+    const uid = inject("uid") as Ref<number>;
+    const router = useRouter();
+    watchEffect(()=>{
+      if(!uid.value){
+        router.push({path:'/login'});
+      }
+    })
+
+    const usrInfo = inject("usrInfo") as any;
     
     return ()=>(<div>
       <p>The connection is available until {usrInfo.connectExpireTime}.</p>

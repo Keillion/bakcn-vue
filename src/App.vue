@@ -1,11 +1,36 @@
 <script lang="tsx">
-import { defineComponent, ref, provide } from 'vue';
+import { defineComponent, reactive, ref, watch, provide, watchEffect } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+import Cookies from 'js-cookie';
+import { fetchMustLogin } from '@/util'
 
 export default defineComponent({
   setup: function(props, context){
-    const user = ref("Keillion");
-    provide("user", user);
+    
+    const uid = ref(0); // 0 means not uid login
+    {
+      const tkUsr = Cookies.get("TkUsr");
+      if(tkUsr){
+        const arr = tkUsr.split('.');
+        const objTkUsr = JSON.parse(atob(arr[1]));
+        console.log('objTkUsr', objTkUsr);
+        uid.value = objTkUsr.uid;
+      }
+    }
+    const usrInfo = reactive({} as any);
+
+    watchEffect(async()=>{
+      if(uid.value){
+        const rep = await fetchMustLogin(`usr/${uid.value}`);
+        const usr = await rep.json();
+        for(let field in usr){
+          usrInfo[field] = usr[field];
+        }
+      }
+    });
+
+    provide("uid", uid);
+    provide("usrInfo", usrInfo);
     
     return ()=>(<>
       <RouterView style="height:92%;"/>

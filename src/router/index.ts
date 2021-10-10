@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import VwHome from '../views/VwHome.vue'
+import VwHome from '@/views/VwHome.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,23 +11,23 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/VwConnect.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/views/VwConnect.vue')
   },
   {
     path: '/community',
-    component: () => import('../views/VwCommunity.vue')
+    component: () => import('@/views/VwCommunity.vue')
   },
   {
     path: '/account',
-    component: () => import('../views/VwAccount.vue')
+    component: () => import('@/views/VwAccount.vue')
   },
   {
     path: '/login',
-    component: () => import('../views/VwLogin.vue')
+    component: () => import('@/views/VwLogin.vue')
   },
   {
     path: '/signup',
-    component: () => import('../views/VwSignup.vue')
+    component: () => import('@/views/VwSignup.vue')
   },
 ]
 
